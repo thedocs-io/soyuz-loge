@@ -7,16 +7,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by fbelov on 05.02.16.
+ * slf4j wrapper to split events from params
  */
 public class LoggerEvents {
 
     private static final Object[] EMPTY_PARAMS = new Object[] {};
 
+    /**
+     * @param logger to be wrapped by io.belov.soyuz.log.LoggerEvents
+     * @return created io.belov.soyuz.log.LoggerEvents
+     */
     public static LoggerEvents getInstance(Logger logger) {
         return new LoggerEvents(logger);
     }
 
+    /**
+     * @param clazz used as param to create org.slf4j.Logger
+     * @return created io.belov.soyuz.log.LoggerEvents
+     */
     public static LoggerEvents getInstance(Class clazz) {
         return new LoggerEvents(LoggerFactory.getLogger(clazz));
     }
@@ -144,7 +152,7 @@ public class LoggerEvents {
     }
 
     private Map joinContexts(Map debugContext, Map params) {
-        Map answer = new HashMap<>(debugContext);
+        Map answer = new HashMap(debugContext);
 
         answer.putAll(params);
 
