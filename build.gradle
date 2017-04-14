@@ -1,7 +1,10 @@
 apply plugin: "java"
+apply plugin: 'maven'
+apply plugin: 'signing'
 
-group = "io.belov"
-version "1.0"
+group = "io.thedocs"
+archivesBaseName = "soyuz-loge"
+version = "1.0"
 
 sourceCompatibility = 1.6
 targetCompatibility = 1.6
@@ -14,6 +17,70 @@ dependencies {
     compile "org.slf4j:slf4j-api:1.6.1"
 }
 
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from 'build/docs/javadoc'
+}
+
+artifacts {
+    archives jar
+    archives javadocJar
+    archives sourcesJar
+}
+
+signing {
+    sign configurations.archives
+}
+
 task wrapper(type: Wrapper) {
     gradleVersion = "2.3"
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'soyuz-loge'
+                packaging 'jar'
+                // optionally artifactId can be defined here
+                description 'slf4j wrapper to improve logs'
+                url 'https://github.com/thedocs-io/soyuz-loge'
+
+                scm {
+                    url 'scm:git@github.com:thedocs-io/soyuz-loge.git'
+                    connection 'scm:git@github.com:thedocs-io/soyuz-loge.git'
+                    developerConnection 'scm:git@github.com:thedocs-io/soyuz-loge.git'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'fedotxxl'
+                        name 'Fedor Belov'
+                    }
+                }
+            }
+        }
+    }
 }
