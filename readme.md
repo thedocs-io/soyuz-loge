@@ -29,8 +29,24 @@ mail.send: {subject=hello world, recipient=earch@gmail.com}
 We pass params as a map. You need a simple way to create maps. In examples below we will use [to.map](https://github.com/fedotxxl/soyuz-is-to) but you are free to use any other convinient way to create maps (e.g. [Guava ImmutableMap.of](http://google.github.io/guava/releases/snapshot/api/docs/com/google/common/collect/ImmutableMap.html)).
 
 ### Maven
+```
+<dependency>
+    <groupId>io.thedocs</groupId>
+    <artifactId>soyuz-loge</artifactId>
+    <version>1.0</version>
+</dependency>
+```
 
 ### Gradle
+```
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'io.thedocs:soyuz-loge:1.0'
+}
+```
 
 ### Examples
 
