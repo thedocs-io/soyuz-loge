@@ -1,4 +1,4 @@
-package io.belov.soyuz.log;
+package io.thedocs.soyuz.log;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,8 +14,8 @@ public class LoggerEvents {
     private static final Object[] EMPTY_PARAMS = new Object[] {};
 
     /**
-     * @param logger to be wrapped by io.belov.soyuz.log.LoggerEvents
-     * @return created io.belov.soyuz.log.LoggerEvents
+     * @param logger to be wrapped by io.thedocs.soyuz.log.LoggerEvents
+     * @return created io.thedocs.soyuz.log.LoggerEvents
      */
     public static LoggerEvents getInstance(Logger logger) {
         return new LoggerEvents(logger);
@@ -23,7 +23,7 @@ public class LoggerEvents {
 
     /**
      * @param clazz used as param to create org.slf4j.Logger
-     * @return created io.belov.soyuz.log.LoggerEvents
+     * @return created io.thedocs.soyuz.log.LoggerEvents
      */
     public static LoggerEvents getInstance(Class clazz) {
         return new LoggerEvents(LoggerFactory.getLogger(clazz));
