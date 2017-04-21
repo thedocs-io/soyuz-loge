@@ -19,11 +19,14 @@ public class LoggerEventsTest {
 
     @Test
     public void shouldCorrectlyLogEvents() {
+        //setup
+        Exception e = new IllegalStateException();
+
         //when
         loge.warn("user.register.e.notUnique", to.map("mail", "hello@gmail.com"));
         loge.debug("user.login", to.map("mail", "hello@gmail.com"));
         loge.info("task.created", to.map("user", "hello@gmail.com", "label", "Improve documentation", "type", "todo"));
-        loge.error("task.process.e", to.map("id", 123, "type", "todo"), new IllegalStateException());
+        loge.error("task.process.e", to.map("id", 123, "type", "todo"), e);
 
         //then
         assertLogs(to.list(

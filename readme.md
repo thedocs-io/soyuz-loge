@@ -25,15 +25,22 @@ Why we think that this log entry is bad?
 mail.send: {subject=hello world, recipient=earch@gmail.com}
 ```
 
+> Please note that we use short (technical) way to describe event. Instead of writing human readable phrase (like "We are sending mail") we use short event name ("mail.send")
+> To construct your best event name we suggest: you to 
+> 1. form event names same as package names - from most common to most specific. 
+> 2. don't use spaces
+> 3. split words with upper case / `-` / `_` (e.g. `user.register.e.notUnique`)
+> 4. split parts with `.`
+
 ## Java implementation
-We pass params as a map. You need a simple way to create maps. In examples below we will use [to.map](https://github.com/fedotxxl/soyuz-is-to) but you are free to use any other convinient way to create maps (e.g. [Guava ImmutableMap.of](http://google.github.io/guava/releases/snapshot/api/docs/com/google/common/collect/ImmutableMap.html)).
+We pass params as a map. You need a simple way to create maps. In examples below we will use [to.map](https://github.com/thedocs-io/soyuz-is-to) but you are free to use any other convenient way to create maps (e.g. [Guava ImmutableMap.of](http://google.github.io/guava/releases/snapshot/api/docs/com/google/common/collect/ImmutableMap.html)).
 
 ### Maven
 ```
 <dependency>
     <groupId>io.thedocs</groupId>
     <artifactId>soyuz-loge</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
 </dependency>
 ```
 
@@ -44,9 +51,33 @@ repositories {
 }
 
 dependencies {
-    compile 'io.thedocs:soyuz-loge:1.0'
+    compile 'io.thedocs:soyuz-loge:1.1'
 }
 ```
 
 ### Examples
 
+> Always use `loge` as variable name
+
+> This example depends on [soyuz-is-to](https://github.com/thedocs-io/soyuz-is-to)
+
+```java
+package io.thedocs.soyuz.log;
+
+import io.belov.soyuz.utils.to;
+
+public class LoggerEventsExamples {
+
+    private static final LoggerEvents loge = LoggerEvents.getInstance(LoggerEventsExamples.class);
+
+    public static void main(String[] args) {
+        Exception e = new IllegalStateException();
+
+        loge.warn("user.register.e.notUnique", to.map("mail", "hello@gmail.com")); //user.register.e.notUnique: {mail=hello@gmail.com}
+        loge.debug("user.login", to.map("mail", "hello@gmail.com")); //user.login: {mail=hello@gmail.com}
+        loge.info("task.created", to.map("user", "hello@gmail.com", "label", "Improve documentation", "type", "todo")); //task.created: {label=Improve documentation, type=todo, user=hello@gmail.com}
+        loge.error("task.process.e", to.map("id", 123, "type", "todo"), e); //task.process.e: {id=123, type=todo}
+    }
+
+}
+```
