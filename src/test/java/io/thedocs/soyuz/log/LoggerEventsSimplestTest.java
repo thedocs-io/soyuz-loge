@@ -1,6 +1,6 @@
 package io.thedocs.soyuz.log;
 
-import io.belov.soyuz.utils.to;
+import io.thedocs.soyuz.to;
 import org.junit.Test;
 
 /**

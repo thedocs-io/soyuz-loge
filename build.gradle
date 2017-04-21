@@ -4,22 +4,19 @@ apply plugin: 'signing'
 
 group = "io.thedocs"
 archivesBaseName = "soyuz-loge"
-version = "1.1"
+version = "1.2"
 
 sourceCompatibility = 1.6
 targetCompatibility = 1.6
 
 repositories {
     mavenCentral()
-    maven {
-        url "https://mymavenrepo.com/repo/${myMavenRepoReadToken}/"
-    }
 }
 
 dependencies {
     compile "org.slf4j:slf4j-api:1.6.1"
 
-    testCompile "io.belov.soyuz:soyuz-is-to:1.57"
+    testCompile "io.thedocs:soyuz-is-to:0.58"
     testCompile "commons-io:commons-io:2.4"
     testCompile "junit:junit:4.11"
     testCompile "ch.qos.logback:logback-classic:1.1.7"

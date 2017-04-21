@@ -40,7 +40,7 @@ We pass params as a map. You need a simple way to create maps. In examples below
 <dependency>
     <groupId>io.thedocs</groupId>
     <artifactId>soyuz-loge</artifactId>
-    <version>1.1</version>
+    <version>1.2</version>
 </dependency>
 ```
 
@@ -51,7 +51,7 @@ repositories {
 }
 
 dependencies {
-    compile 'io.thedocs:soyuz-loge:1.1'
+    compile 'io.thedocs:soyuz-loge:1.2'
 }
 ```
 
@@ -64,7 +64,7 @@ dependencies {
 ```java
 package io.thedocs.soyuz.log;
 
-import io.belov.soyuz.utils.to;
+import io.thedocs.soyuz.to;
 
 public class LoggerEventsExamples {
 
