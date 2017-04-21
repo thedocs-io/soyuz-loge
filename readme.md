@@ -73,10 +73,17 @@ public class LoggerEventsExamples {
     public static void main(String[] args) {
         Exception e = new IllegalStateException();
 
-        loge.warn("user.register.e.notUnique", to.map("mail", "hello@gmail.com")); //user.register.e.notUnique: {mail=hello@gmail.com}
-        loge.debug("user.login", to.map("mail", "hello@gmail.com")); //user.login: {mail=hello@gmail.com}
-        loge.info("task.created", to.map("user", "hello@gmail.com", "label", "Improve documentation", "type", "todo")); //task.created: {label=Improve documentation, type=todo, user=hello@gmail.com}
-        loge.error("task.process.e", to.map("id", 123, "type", "todo"), e); //task.process.e: {id=123, type=todo}
+        //user.register.e.notUnique: {mail=hello@gmail.com}
+        loge.warn("user.register.e.notUnique", to.map("mail", "hello@gmail.com"));
+        
+        //user.login: {mail=hello@gmail.com}
+        loge.debug("user.login", to.map("mail", "hello@gmail.com")); 
+        
+        //task.created: {label=Improve documentation, type=todo, user=hello@gmail.com}
+        loge.info("task.created", to.map("user", "hello@gmail.com", "label", "Improve documentation", "type", "todo")); 
+        
+        //task.process.e: {id=123, type=todo}
+        loge.error("task.process.e", to.map("id", 123, "type", "todo"), e); 
     }
 
 }
