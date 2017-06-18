@@ -2,6 +2,7 @@ package io.thedocs.soyuz.log;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.event.Level;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +12,7 @@ import java.util.Map;
  */
 public class LoggerEvents {
 
-    private static final Object[] EMPTY_PARAMS = new Object[] {};
+    private static final Object[] EMPTY_PARAMS = new Object[]{};
 
     /**
      * @param logger to be wrapped by io.thedocs.soyuz.log.LoggerEvents
@@ -37,6 +38,36 @@ public class LoggerEvents {
 
     public Logger getLog() {
         return log;
+    }
+
+    public void log(Level level, String event) {
+        log(level, event, null);
+    }
+
+    public void log(Level level, String event, Map params) {
+        log(level, event, null, params);
+    }
+
+    public void log(Level level, String event, Map debugContext, Map params) {
+        switch (level) {
+            case TRACE:
+                trace(event, debugContext, params);
+                break;
+            case DEBUG:
+                debug(event, debugContext, params);
+                break;
+            case INFO:
+                info(event, debugContext, params);
+                break;
+            case WARN:
+                warn(event, debugContext, params);
+                break;
+            case ERROR:
+                error(event, debugContext, params);
+                break;
+            default:
+                throw new IllegalStateException("Unknown log level " + level);
+        }
     }
 
     public void trace(String event) {
@@ -147,16 +178,22 @@ public class LoggerEvents {
         if (params == null) {
             return EMPTY_PARAMS;
         } else {
-            return new Object[] { params };
+            return new Object[]{params};
         }
     }
 
     private Map joinContexts(Map debugContext, Map params) {
-        Map answer = new HashMap(debugContext);
+        if (debugContext == null && params == null) {
+            return null;
+        } else {
+            Map answer = (debugContext == null) ? new HashMap() : new HashMap(debugContext);
 
-        answer.putAll(params);
+            if (params != null) {
+                answer.putAll(params);
+            }
 
-        return answer;
+            return answer;
+        }
     }
 
 }
